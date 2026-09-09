@@ -28,3 +28,16 @@ jobs:
     - name: Run Unit Tests
       run: |
         python -m pytest tests/test_whitebox.py -v
+    - name: Upload HTML Test Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: Automated-Test-Report
+        path: report.html
+
+    - name: Upload AI Bug Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: AI-Generated-Bug-Report
+        path: AI_Bug_Report.txt
