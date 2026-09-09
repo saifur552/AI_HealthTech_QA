@@ -1,16 +1,14 @@
-**Bug Title:** System allows selection of past date and redirects to summary page
+**Bug Title**: System accepts past date and redirects to summary page
 
-**Severity:** Major
+**Severity**: High
 
-**Environment:** Web Platform
+**Environment**: Automated UI test in Katalon Studio on https://katalon-demo-cura.herokuapp.com
 
-**Steps to Reproduce:**
-1. Open the application and navigate to the appointment scheduling section.
-2. Select a past date for the appointment.
-3. Continue with the appointment booking process.
+**Steps to Reproduce**:
+1. Navigate to the appointment page.
+2. Select a past date for an appointment.
+3. Proceed to the next step.
 
-**Expected Result:** The system should not allow the selection of past dates for appointments and should show an error message or prevent proceeding to the summary page.
+**Expected Result**: The system should not allow selecting a past date for an appointment and should display an error message or prevent redirection to the summary page.
 
-**Actual Result:** The system allows selection of past dates and redirects to the summary page.
-
-**Note:** This issue impacts the integrity of the appointment scheduling feature and needs to be addressed promptly.
+**Actual Result**: The system accepted the past date and redirected to the summary page without appropriate validation.
