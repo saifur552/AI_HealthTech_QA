@@ -1,46 +1,37 @@
-# Cura Healthcare Service - Comprehensive Test Cases & Execution Report
-**Project Target:** HealthTech Domain UI & Functional Testing  
-**Framework:** Selenium WebDriver, PyTest, AI Bug Reporting  
+Manual Test Execution Report
+============================
 
----
+Document Version: 1.0
+Tested By: Saifur Rahman
+Execution Date: September 10, 2026
+Environment: Windows 10, Google Chrome (Version 120.0)
+Application URL: https://katalon-demo-cura.herokuapp.com/
 
-## 1. Login & Security Test Cases
+Execution Summary
+-----------------
+ Every test case listed below was manually executed in the staging environment. The exact steps were followed, and actual results were observed and documented. 
 
-| Test Case ID | Test Scenario | Steps to Reproduce | Expected Result | Actual Result | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **TC_L01** | Valid User Login | 1. Navigate to URL<br>2. Enter valid Username & Password<br>3. Click Login | User successfully logs in and lands on Appointment page | Landed on Appointment page | **Pass** ✅ |
-| **TC_L02** | Invalid Password Login | 1. Navigate to URL<br>2. Enter valid Username & incorrect Password<br>3. Click Login | System should display error message for invalid credentials | Error message displayed | **Pass** ✅ |
-| **TC_L03** | Invalid Username Login | 1. Navigate to URL<br>2. Enter incorrect Username & valid Password<br>3. Click Login | System should display login failure warning | Warning message displayed | **Pass** ✅ |
-| **TC_L04** | Blank Fields Validation | 1. Navigate to URL<br>2. Keep username & password empty<br>3. Click Login | Browser or application validation popup/error should occur | Validation warning triggered | **Pass** ✅ |
+Detailed Test Cases
+-------------------
 
----
+| TC ID | Category | Scenario | Steps to Execute | Expected Result | Actual Result | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| TC_001 | Auth | Valid Login | 1. Open URL <br>2. Enter valid user <br>3. Enter valid pass <br>4. Click Login | User successfully logs in and sees Appointment page. | Logged in successfully and redirected to Appointment page. | Pass |
+| TC_002 | Auth | Invalid Password | 1. Enter valid user <br>2. Enter wrong pass <br>3. Click Login | Error message appears. | Login failed message displayed clearly. | Pass |
+| TC_003 | Auth | Empty Fields | 1. Leave fields blank <br>2. Click Login | Login rejected. | Login rejected, no redirection happened. | Pass |
+| TC_004 | Security | Direct URL Access | 1. Paste Appointment URL without login | Redirected back to login page. | Redirected to login page immediately. | Pass |
+| TC_005 | Functionality | Valid Booking | 1. Login <br>2. Fill all data <br>3. Click Book | Booking confirmed. | Booking confirmed and summary page shown. | Pass |
+| TC_006 | Validation | Empty Date | 1. Leave date blank <br>2. Click Book | HTML5 validation error shown. | "Please fill out this field" warning appeared. | Pass |
+| TC_007 | Logic | Past Date Booking | 1. Select past date <br>2. Click Book | System rejects past date. | System accepted the past date and confirmed booking. | Fail |
+| TC_008 | UI | Checkbox Toggle | 1. Check/uncheck hospital readmission | State changes visually. | Checkbox toggled without delay. | Pass |
+| TC_009 | UI | Radio (Medicare) | 1. Select Medicare | Selected successfully. | Radio button selected. | Pass |
+| TC_010 | UI | Radio (Medicaid) | 1. Select Medicaid | Selected, Medicare deselected. | Switched perfectly between options. | Pass |
+| TC_011 | Data | Verify Confirmation | 1. Book and check summary | Data matches input exactly. | Displayed data matched user inputs. | Pass |
+| TC_012 | Functionality | History (Data) | 1. Book <br>2. Go to History | Appointment is visible. | Previous appointment found in history. | Pass |
+| TC_013 | Functionality | History (Empty) | 1. Login fresh <br>2. Go to History | No appointment message. | "No appointment" displayed. | Pass |
+| TC_014 | Auth | Logout | 1. Click menu <br>2. Click Logout | Logged out to homepage. | Logged out and session destroyed. | Pass |
+| TC_015 | UI | Sidebar Toggle | 1. Click hamburger menu | Menu slides in/out. | Menu animation worked smoothly. | Pass |
 
-## 2. Appointment Booking Functional Test Cases
-
-| Test Case ID | Test Scenario | Steps to Reproduce | Expected Result | Actual Result | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **TC_B01** | Standard Appointment Booking | 1. Login to system<br>2. Select Facility, Check Readmission, Select Program, Pick Future Date, Add comment<br>3. Click Book Appointment | Appointment confirmation page displays with correct details | Confirmation page displayed correctly | **Pass** ✅ |
-| **TC_B02** | Booking without Hospital Readmission | 1. Login<br>2. Uncheck Readmission checkbox<br>3. Fill remaining fields and book | Booking should process successfully without readmission flag | Processed successfully | **Pass** ✅ |
-| **TC_B03** | **Past Date Booking (Logical Bug)** | 1. Login<br>2. Select a date from the past (e.g., 2020-01-01)<br>3. Click Book Appointment | **System must restrict past dates and show error** | **System accepts past date without restriction** | **Fail ❌ (AI Bug Triggered)** |
-| **TC_B04** | Blank Date Field Submission | 1. Login<br>2. Leave Visit Date field empty<br>3. Click Book Appointment | System should throw required field validation error | Error thrown successfully | **Pass** ✅ |
-| **TC_B05** | Healthcare Program Radio Selection | 1. Login<br>2. Test selecting Medicaid, Medicare, and None options | Radio buttons should be mutually exclusive and functional | Working as expected | **Pass** ✅ |
-
----
-
-## 3. Navigation & UI Test Cases
-
-| Test Case ID | Test Scenario | Steps to Reproduce | Expected Result | Actual Result | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **TC_N01** | Home 'Make Appointment' Button | 1. Go to Home page<br>2. Click 'Make Appointment' CTA | Redirects to login page if unauthenticated | Redirected successfully | **Pass** ✅ |
-| **TC_N02** | Sidebar Menu Toggle | 1. Click hamburger menu icon | Sidebar slides out displaying navigation links | Sidebar functional | **Pass** ✅ |
-| **TC_N03** | History Page Verification | 1. Complete booking<br>2. Navigate to History section | Previously booked appointments should be listed | Appointment listed | **Pass** ✅ |
-| **TC_N04** | Profile Page Rendering | 1. Open Profile from sidebar | User profile details render correctly | Rendered properly | **Pass** ✅ |
-| **TC_N05** | Footer Social Links | 1. Scroll to footer<br>2. Click social media icons | External links should open correctly | Links valid | **Pass** ✅ |
-
----
-
-## 4. End Flow Test Case
-
-| Test Case ID | Test Scenario | Steps to Reproduce | Expected Result | Actual Result | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **TC_E01** | Logout Functionality | 1. Login<br>2. Open menu and click Logout | User session terminates and returns to homepage | Returned to homepage | **Pass** ✅ |
+Failure Note
+------------
+The failure detected in TC_007 (Past Date Booking) has been marked for automation. 
