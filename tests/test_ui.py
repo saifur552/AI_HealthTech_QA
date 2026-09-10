@@ -1,14 +1,19 @@
 # tests/test_ui.py
 import time
 import pytest
+from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from pages.login_page import LoginPage
 from pages.appointment_page import AppointmentPage
-from utils.ai_reporter import generate_bug_report  # AI রিপোর্টার इम्पोर्ट করা হলো
+from utils.ai_reporter import generate_bug_report  
 
 def test_valid_login():
-    """টেস্ট ১: সঠিকভাবে লগইন হচ্ছে কি না"""
-    driver = webdriver.Chrome()
+    
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    driver = webdriver.Chrome(options=chrome_options)
     driver.maximize_window()
     
     login_page = LoginPage(driver)
@@ -20,7 +25,7 @@ def test_valid_login():
     driver.quit()
 
 def test_past_date_booking_bug():
-    """টেস্ট ২: অতীতের তারিখ দিয়ে বুকিং আটকানো এবং স্বয়ংক্রিয় AI বাগ রিপোর্ট জেনারেট করা"""
+   
     driver = webdriver.Chrome()
     driver.maximize_window()
     
@@ -36,10 +41,8 @@ def test_past_date_booking_bug():
     current_url = driver.current_url.lower()
     driver.quit()
     
-    # টেস্ট ফেইল করলে AI দিয়ে অটোমেটিক বাগ রিপোর্ট জেনারেট করার লজিক
     try:
         assert "summary" not in current_url, "BUG DETECTED: System accepted a past date and redirected to summary page!"
     except AssertionError as e:
-        # টেস্ট ফেইল করার কারণটি AI-কে পাঠিয়ে দেওয়া হচ্ছে
         generate_bug_report(str(e))
-        raise e  # টেস্টটি যাতে পাইথনের চোখেও ফেইল হিসেবে রেকর্ড থাকে
+        raise e  
