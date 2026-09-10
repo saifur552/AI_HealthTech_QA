@@ -1,4 +1,4 @@
-Cura Healthcare SQA Automation Framework
+AI-Powered QA Automation Suite (Cura Healthcare)
 ========================================
 
 Overview
